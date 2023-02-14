@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: |
           echo "GITHUB_WORKSPACE=${{ github.workspace }}"
-          mv reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
+          mv ${{ github.workspace }}/reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
           cd ${{ github.workspace }}/ops/Report/Jmeter
           git add .
           git commit -m "Jmeter Report"
