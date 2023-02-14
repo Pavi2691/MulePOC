@@ -24,12 +24,8 @@ jobs:
           outputReportsFolder: reports/
           args: "--loglevel INFO"
 
-      - uses: actions/upload-artifact@v1
-        with:
-          name: jmeter-test-results
-          path: reports/
-          
-     - name: Commit Jmeter report to repo
+
+      - name: Commit Jmeter report to repo
         run: |
           cd reports
           mv statistics.json ./ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
