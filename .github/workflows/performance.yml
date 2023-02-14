@@ -27,9 +27,15 @@ jobs:
       - name: Commit Jmeter report to repo
         shell: bash
         run: |
+          echo $pwd
           echo "GITHUB_WORKSPACE=${{ github.workspace }}"
-          mv ${{ github.workspace }}/reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
+          cd ${{ github.workspace }}/reports
+          echo $pwd
+          cd ${{ github.workspace }}/
+          ls -lrt >> file.txt
+          cat file.txt 
+          mv statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
           cd ${{ github.workspace }}/ops/Report/Jmeter
           git add .
-          git commit -m "Jmeter Report"
+          git commit -m "Jmeter Report1"
           git push origin develop
