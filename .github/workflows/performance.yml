@@ -29,4 +29,4 @@ jobs:
         with:
           commit_message: Jmeter Report
           file_pattern: 'reports/statistics.json'
-          repository: .
+          repository: ./ops
