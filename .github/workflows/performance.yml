@@ -28,7 +28,8 @@ jobs:
       - name: Commit Jmeter report to repo
         run: |
           cd reports/
-          ls
+          ls -1 > fileslist.txt
+          cat filelist.txt
           mv statistics.json ./ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
           cd ./ops/Report/Jmeter
           git add .
