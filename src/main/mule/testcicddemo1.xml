@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="935c34e2-0112-45e6-83c7-a90287bebf84" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="cicddemoFlow" doc:id="95ad57e9-8320-42a4-a99b-a2990c77087a" >
+		<http:listener doc:name="Listener" doc:id="0cc5195e-dca2-4b1d-a87d-8fd09ce41da0" config-ref="HTTP_Listener_config" path="/test">
+			<http:response statusCode="#[vars.httpStatusCode default 500]" />
+			<http:error-response statusCode="500" />
+		</http:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="bef031c1-75e7-492c-b1d9-e5c9ee7a3105" message="yes got it"/>
+		<ee:transform doc:name="Transform Message" doc:id="b245b348-f0cd-4ce4-86f4-30eb571007c2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var methodSelected = attributes.queryParams.method
+var firstNumber = attributes.queryParams.firstNumber as Number
+var secondNumber = attributes.queryParams.secondNumber as Number
+---
+{
+	"method": methodSelected,
+	(if(methodSelected == "Add")
+		"result": firstNumber + secondNumber
+	else if ((methodSelected == "Substract"))
+		"result": firstNumber - secondNumber
+	else if ((methodSelected == "Multiply"))
+		"result": firstNumber * secondNumber
+	else if ((methodSelected == "Divide"))
+		"result": firstNumber / secondNumber
+	else
+		"result": "NA")
+	}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatusCode" ><![CDATA[%dw 2.0
+output application/java
+var methodSelected = attributes.queryParams.method
+---
+(if(methodSelected == "Add")
+		200
+	else if ((methodSelected == "Substract"))
+		200
+	else if ((methodSelected == "Multiply"))
+		200
+	else if ((methodSelected == "Divide"))
+		200
+	else
+		500)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</flow>
+</mule>

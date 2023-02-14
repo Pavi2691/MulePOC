@@ -1,0 +1,54 @@
+name: Execute Performace Test
+
+on:
+  #push:
+  #  branches:
+  #    - master
+  pull_request:
+    types: [ closed ]
+    branches: [ performance ]
+
+env:
+  sendEmail: true
+
+jobs:
+  action_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run JMeter Action on a test
+        uses: rbhadti94/apache-jmeter-action@v0.5.0
+        with:
+          testFilePath: ops/testDemo.jmx
+          outputReportsFolder: reports/
+          args: "--loglevel INFO"
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: jmeter-test-results
+          path: reports/
+          
+      - name: Send reports over email
+        if: env.sendEmail == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          #connection_url: ${{secrets.MAIL_CONNECTION}}          # Specify connection via URL (replaces server_address, server_port, secure, username and password)
+          server_address: smtp.gmail.com                        # Required mail server address if not connection_url
+          server_port: 465                                      # Server port, default 25
+          secure: true                                          # Optional whether this connection use TLS (default is true if server_port is 465)
+          username: ${{secrets.MAIL_USERNAME}}                  # Optional (recommended): mail server username
+          password: ${{secrets.MAIL_PASSWORD}}                  # Optional (recommended) mail server password
+          subject: Performace Test Results                      # Required mail subject
+          to: sourabh.trivedi@accenture.com                     # Required recipients' addresses
+          from: Luke Skywalker                                  # Required sender full name (address can be skipped)
+          body: Build job of ${{github.repository}} completed successfully!   # Optional plain body
+          #html_body: file://README.html                         # Optional HTML body read from file
+          #cc: kyloren@example.com,leia@example.com              # Optional carbon copy recipients
+          #bcc: r2d2@example.com,hansolo@example.com             # Optional blind carbon copy recipients
+          #reply_to: luke@example.com                            # Optional recipient of the email response
+          #in_reply_to: <random-luke@example.com>                # Optional Message ID this message is replying to
+          ignore_cert: true                                     # Optional unsigned/invalid certificates allowance
+          convert_markdown: true                                # Optional converting Markdown to HTML (set content_type to text/html too)
+          attachments: reports/statistics.json                          # Optional attachments
+          priority: normal                                       # Optional priority: 'high', 'normal' (default) or 'low'
