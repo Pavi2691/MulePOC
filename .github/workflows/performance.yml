@@ -29,12 +29,9 @@ jobs:
         run: |
           echo $pwd
           echo "GITHUB_WORKSPACE=${{ github.workspace }}"
-          cd ${{ github.workspace }}/reports
-          echo $pwd
-          cd ${{ github.workspace }}/
-          ls -lrt >> file.txt
-          cat file.txt 
-          mv statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
+          cd ${{ github.workspace }}/ops
+          mkdir -p Report/Jmeter/ 
+          cp ${{ github.workspace }}/reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
           cd ${{ github.workspace }}/ops/Report/Jmeter
           git add .
           git commit -m "Jmeter Report1"
