@@ -27,7 +27,7 @@ jobs:
       - name: Commit Jmeter report to repo
 	      shell: bash
         run: |
-		      echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
           cd ${{ env.GITHUB_WORKSPACE }}/reports/
           mv statistics.json ${{ env.GITHUB_WORKSPACE }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
           cd ${{ env.GITHUB_WORKSPACE }}/ops/Report/Jmeter
