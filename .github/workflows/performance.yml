@@ -27,10 +27,10 @@ jobs:
       - name: Commit Jmeter report to repo
         shell: bash
         run: |
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-          cd ${{ env.GITHUB_WORKSPACE }}/reports/
-          mv statistics.json ${{ env.GITHUB_WORKSPACE }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
-          cd ${{ env.GITHUB_WORKSPACE }}/ops/Report/Jmeter
+          echo "GITHUB_WORKSPACE=${{ github.workspace }}" 
+          cd ${{ github.workspace }}/reports/
+          mv statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
+          cd ${{ github.workspace }}/ops/Report/Jmeter
           git add .
           git commit -m "Jmeter Report"
           git push origin develop
