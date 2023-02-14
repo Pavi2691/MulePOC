@@ -36,4 +36,4 @@ jobs:
           git config --global user.name "Pavithra Murali"
           git add .
           git commit -m "Jmeter Report1"
-          git push origin develop
+          git push
