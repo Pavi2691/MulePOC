@@ -24,6 +24,7 @@ jobs:
           outputReportsFolder: reports/
           args: "--loglevel INFO"
 
+
       - name: Commit Jmeter report to repo
         run: |
           cd reports
@@ -31,6 +32,4 @@ jobs:
           cd ./ops/Report/Jmeter
           git add .
           git commit -m "Jmeter Report"
-          git push origin master
-
-     
+          git push origin performance
