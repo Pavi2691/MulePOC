@@ -21,12 +21,12 @@ jobs:
         uses: rbhadti94/apache-jmeter-action@v0.5.0
         with:
           testFilePath: ops/testDemo.jmx
-          outputReportsFolder: reports/
+          outputReportsFolder: /ops/reports/JMeter/
           args: "--loglevel INFO"
      
       
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Jmeter Report
-          file_pattern: 'reports/statistics.json'
-          repository: ./ops
+          file_pattern: 'reports/JMeter/statistics.json'
+          repository: .
