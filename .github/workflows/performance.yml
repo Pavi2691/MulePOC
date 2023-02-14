@@ -23,17 +23,10 @@ jobs:
           testFilePath: ops/testDemo.jmx
           outputReportsFolder: reports/
           args: "--loglevel INFO"
-
-
-      - name: Commit Jmeter report to repo
-        run: |
-          cd reports/
-          chmod 777 reports/
-          ls -l >> fileslist.txt
-          chmod 777 fileslist.txt
-          cat filelist.txt
-          mv statistics.json ./ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
-          cd ./ops/Report/Jmeter
-          git add .
-          git commit -m "Jmeter Report"
-          git push origin performance
+     
+      
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Jmeter Report
+          file_pattern: 'reports/statistics.json'
+          repository: .
