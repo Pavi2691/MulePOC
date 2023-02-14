@@ -21,7 +21,7 @@ jobs:
         uses: rbhadti94/apache-jmeter-action@v0.5.0
         with:
           testFilePath: ops/testDemo.jmx
-          outputReportsFolder: /ops/reports/JMeter/
+          outputReportsFolder: ops/reports/JMeter/
           args: "--loglevel INFO"
      
       
