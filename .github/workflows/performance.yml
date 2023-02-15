@@ -32,6 +32,7 @@ jobs:
         run: |
           echo "GITHUB_WORKSPACE=${{ github.workspace }}"
           cd ${{ github.workspace }}/reports
+          sudo chmod +rwx reports
           ls-lrt > file.txt
           cat file.txt
           cd ${{ github.workspace }}/ops
