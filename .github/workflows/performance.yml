@@ -34,5 +34,5 @@ jobs:
           sudo chmod +rwx performance.sh
           ./performance.sh
         env:
-          committerEmail: ${{ env.committerEmail }}
-          committerName: ${{ env.committerName }}
+          committerEmail: "${{ env.committerEmail }}"
+          committerName: "${{ env.committerName }}"
