@@ -31,4 +31,5 @@ jobs:
         shell: bash
         run: |
           cd ${{ github.workspace }}/.github/workflows
+          sudo chmod +rwx performance.sh
           ./performance.sh
