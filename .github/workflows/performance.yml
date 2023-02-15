@@ -30,7 +30,7 @@ jobs:
           echo "GITHUB_WORKSPACE=${{ github.workspace }}"
           cd ${{ github.workspace }}/ops
           mkdir -p Report/Jmeter/ 
-          cp ${{ github.workspace }}/reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d"`.json
+          cp ${{ github.workspace }}/reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d%H%M%S"`.json
           cd ${{ github.workspace }}/ops/Report/Jmeter
           git config --global user.email "pavithra.murali@accenture.com"
           git config --global user.name "Pavithra Murali"
