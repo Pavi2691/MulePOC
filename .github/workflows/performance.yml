@@ -9,7 +9,10 @@ on:
     branches: [ performance ]
 
 env:
-  sendEmail: true
+  sendEmail: false
+  jmxFilePath: "ops/testDemo.jmx"
+  committerEmail: "pavithra.murali@accenture.com"
+  committerName: "Pavithra Murali"
 
 jobs:
   action_build:
@@ -20,7 +23,7 @@ jobs:
       - name: Run JMeter Action on a test
         uses: rbhadti94/apache-jmeter-action@v0.5.0
         with:
-          testFilePath: ops/testDemo.jmx
+          testFilePath: ${{ env.jmxFilePath }}
           outputReportsFolder: reports/
           args: "--loglevel INFO"  
       
@@ -28,12 +31,15 @@ jobs:
         shell: bash
         run: |
           echo "GITHUB_WORKSPACE=${{ github.workspace }}"
+          cd ${{ github.workspace }}/reports
+          ls-lrt > file.txt
+          cat file.txt
           cd ${{ github.workspace }}/ops
           mkdir -p Report/Jmeter/ 
           cp ${{ github.workspace }}/reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d%H%M%S"`.json
           cd ${{ github.workspace }}/ops/Report/Jmeter
-          git config --global user.email "pavithra.murali@accenture.com"
-          git config --global user.name "Pavithra Murali"
+          git config --global user.email "${{ env.committerEmail }}"
+          git config --global user.name "${{ env.committerName }}"
           git add .
-          git commit -m "Jmeter Report1"
+          git commit -m "Jmeter Report"
           git push
