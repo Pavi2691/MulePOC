@@ -31,15 +31,12 @@ jobs:
         shell: bash
         run: |
           echo "GITHUB_WORKSPACE=${{ github.workspace }}"
-          cd ${{ github.workspace }}
-          sudo chmod +rwx reports/
-          cd reports
-          ls-lrt > file.txt
-          cat file.txt
           cd ${{ github.workspace }}/ops
           mkdir -p Report/Jmeter/ 
-          cp ${{ github.workspace }}/reports/statistics.json ${{ github.workspace }}/ops/Report/Jmeter/statistics_`date +"%Y%m%d%H%M%S"`.json
+          cp -R ${{ github.workspace }}/reports ${{ github.workspace }}/ops/Report/Jmeter/
           cd ${{ github.workspace }}/ops/Report/Jmeter
+          zip -r JMeterReport_`date +"%Y%m%d%H%M%S"` reports
+          rm -r reports
           git config --global user.email "${{ env.committerEmail }}"
           git config --global user.name "${{ env.committerName }}"
           git add .
