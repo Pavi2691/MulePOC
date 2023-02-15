@@ -31,8 +31,8 @@ jobs:
         shell: bash
         run: |
           cd ${{ github.workspace }}/.github/workflows
-          sudo chmod +rwx performance.sh
+          sudo chmod +x performance.sh
           ./performance.sh
         env:
-          committerEmail: "${{ env.committerEmail }}"
-          committerName: "${{ env.committerName }}"
+          committerEmail: "pavithra.murali@accenture.com"
+          committerName: "Pavithra Murali"
