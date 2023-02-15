@@ -1,9 +1,8 @@
 #!/bin/sh
-echo "GITHUB_WORKSPACE=${{ github.workspace }}"
-cd ${{ github.workspace }}/ops
+cd /home/runner/work/MulePOC/MulePOC/ops
 mkdir -p Report/Jmeter/ 
-cp -R ${{ github.workspace }}/reports ${{ github.workspace }}/ops/Report/Jmeter/
-cd ${{ github.workspace }}/ops/Report/Jmeter
+cp -R $/home/runner/work/MulePOC/MulePOC/reports /home/runner/work/MulePOC/MulePOC/ops/Report/Jmeter/
+cd /home/runner/work/MulePOC/MulePOC/ops/Report/Jmeter
 zip -r JMeterReport_`date +"%Y%m%d%H%M%S"` reports
 rm -r reports
 git config --global user.email "${{ env.committerEmail }}"
