@@ -5,8 +5,8 @@ cp -R /home/runner/work/MulePOC/MulePOC/reports /home/runner/work/MulePOC/MulePO
 cd /home/runner/work/MulePOC/MulePOC/ops/Report/Jmeter
 zip -r JMeterReport_`date +"%Y%m%d%H%M%S"` reports
 rm -r reports
-git config --global user.email "${{ env.committerEmail }}"
-git config --global user.name "${{ env.committerName }}"
+git config --global user.email "$committerEmail"
+git config --global user.name "$committerName"
 git add .
 git commit -m "Jmeter Report"
 git push
