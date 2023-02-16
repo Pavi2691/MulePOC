@@ -34,5 +34,4 @@ jobs:
           sudo chmod +x performance.sh
           ./performance.sh
         env:
-          committerEmail: "${{ env.committerEmail }}"
-          committerName: "${{ env.committerName }}"
+          workspace: ${{ github.workspace }}
