@@ -1,8 +1,8 @@
 #!/bin/sh
-cd /home/runner/work/MulePOC/MulePOC/ops
+cd $workspace/ops
 mkdir -p Report/Jmeter/ 
-cp -R /home/runner/work/MulePOC/MulePOC/reports /home/runner/work/MulePOC/MulePOC/ops/Report/Jmeter/
-cd /home/runner/work/MulePOC/MulePOC/ops/Report/Jmeter
+cp -R $workspace/reports $workspace/ops/Report/Jmeter/
+cd $workspace/ops/Report/Jmeter
 zip -r JMeterReport_`date +"%Y%m%d%H%M%S"` reports
 rm -r reports
 git config --global user.email "$committerEmail"
