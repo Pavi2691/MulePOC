@@ -1,18 +1,25 @@
+# This workflow will run Jemeter and commit the report back into the rpository
 name: Execute Performace Test
 
+#Condition to trigger the workflow - When PR is merged to the performance branch
 on:
-  #push:
-  #  branches:
-  #    - master
   pull_request:
     types: [ closed ]
     branches: [ performance ]
 
+# Set environment variables
+# ***************************************************************************************************************************************************************
+# **************************************** DEVELOPERS ARE RESPONSIBLE IN MANAGING PARAMETERS BELOW THIS LINE **************************************************
+# *************************************************************************************************************************************************************
 env:
-  sendEmail: false
-  jmxFilePath: "ops/testDemo.jmx"
-  committerEmail: "pavithra.murali@accenture.com"
-  committerName: "Pavithra Murali"
+  jmxFilePath: "ops/testDemo.jmx"                               #The jmx file is placed in the repo along with it's relative path
+  committerEmail: "pavithra.murali@accenture.com"               #Update the developer email id here 
+  committerName: "Pavithra Murali"                              #Update the developer First and Last Name. This name is reflected in the commit     
+
+
+# ***************************************************************************************************************************************************************
+# **************************************** DO NOT MAKE ANY CHANGES TO THIS SCRIPT OR VALUES BELOW THIS POINT ****************************************************
+# ***************************************************************************************************************************************************************
 
 jobs:
   action_build:
@@ -20,6 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      #*********************** Action to run and generate the JMeter Report and place it in the output folder*******************
+      
       - name: Run JMeter Action on a test
         uses: rbhadti94/apache-jmeter-action@v0.5.0
         with:
@@ -27,11 +36,10 @@ jobs:
           outputReportsFolder: reports/
           args: "--loglevel INFO"  
       
+      #*********************** Runs the script to zip the report generated and commit it back to the repository ****************
+      
       - name: Commit Jmeter report to repo
         shell: bash
-        run: |
-          cd ${{ github.workspace }}/.github/workflows
-          sudo chmod +x performance.sh
-          ./performance.sh
+        run: bash ${{ github.workspace }}/.github/workflows/performance.sh
         env:
           workspace: ${{ github.workspace }}
