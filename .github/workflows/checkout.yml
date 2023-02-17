@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone private repo
-        run: git clone "https://'pavithra.murali':'$EXTERNAL_TOKEN'@innersource.accenture.com/scm/ctsmywdc/dominionenergy.git"
+        run: git clone "https://pavithra.murali:'$EXTERNAL_TOKEN'@innersource.accenture.com/scm/ctsmywdc/dominionenergy.git"
         env:
-          EXTERNAL_TOKEN : 'WDcgOaLi8vW7pXodlC3iSYiYVv5tn1FCTCo1sX'
+          EXTERNAL_TOKEN : 'xXHUaBljNDaDr36OsLuc2UhUxwFDdNN8kd46hK'
