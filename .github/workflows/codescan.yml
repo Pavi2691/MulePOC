@@ -27,15 +27,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - name: Checkout code scan
-        uses: actions/checkout@v2
-        with:
-         repository: king-raj7/muleCodeScan
-         token: ${{ secrets.GITHUBTOKEN }} # `GH_PAT` is a secret that contains your PAT
-         path: muleCodeScan
+      - name: Clone private repo
+        run: |
+          mkdir muleCodeScan
+          cd muleCodeScan
+          git clone "https://$USER:$EXTERNAL_TOKEN@innersource.accenture.com/scm/ctsmywdc/test.git"
+        env:
+          EXTERNAL_TOKEN: 'xXHUaBljNDaDr36OsLuc2UhUxwFDdNN8kd46hK'
+          USER: 'pavithra.murali'
          
       - name: Run code scan
-        run: /bin/bash muleCodeScan/codescan.sh
+        run: /bin/bash muleCodeScan/test/codescan.sh
       
       - name: Upload artifact
         uses: actions/upload-artifact@master
