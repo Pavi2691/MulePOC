@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: 'CTSMYWDC/dominionenergy'
+          ref: 'DEVL'
           token: 'BBDC-MzIyNTc2NTQ2MTI3OkywEzFQhi6UMlUEIqePq4y88Y6G'
           path: 'regression'
           github-server-url: 'https://innersource.accenture.com'
