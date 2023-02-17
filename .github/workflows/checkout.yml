@@ -8,10 +8,7 @@ jobs:
   action_build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: 'CTSMYWDC/dominionenergy'
-          ref: 'DEVL'
-          token: 'BBDC-MzIyNTc2NTQ2MTI3OkywEzFQhi6UMlUEIqePq4y88Y6G'
-          path: 'regression'
-          github-server-url: 'https://innersource.accenture.com'
+      - name: Clone private repo
+        run: git clone "https://innersource.accenture.com/scm/ctsmywdc/dominionenergy.git" main
+        env:
+          EXTERNAL_TOKEN : 'BBDC-MzIyNTc2NTQ2MTI3OkywEzFQhi6UMlUEIqePq4y88Y6G'
