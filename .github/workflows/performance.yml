@@ -15,7 +15,7 @@ env:
   jmxFilePath: "ops/testDemo.jmx"                               #The jmx file is placed in the repo along with it's relative path
   committerEmail: "pavithra.murali@accenture.com"               #Update the developer email id here 
   committerName: "Pavithra Murali"                              #Update the developer First and Last Name.This name is reflected in the commit     
-  githubToken: "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"
+  githubToken: "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"
 
 
 # ***************************************************************************************************************************************************************
