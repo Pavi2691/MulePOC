@@ -14,7 +14,8 @@ on:
 env:
   jmxFilePath: "ops/testDemo.jmx"                               #The jmx file is placed in the repo along with it's relative path
   committerEmail: "pavithra.murali@accenture.com"               #Update the developer email id here 
-  committerName: "Pavithra Murali"                              #Update the developer First and Last Name. This name is reflected in the commit     
+  committerName: "Pavithra Murali"                              #Update the developer First and Last Name.This name is reflected in the commit     
+  githubToken: "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"
 
 
 # ***************************************************************************************************************************************************************
@@ -30,7 +31,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: 'Pavi2691/Scripts'
-          token: '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'
+          token: ${{ env.githubToken }}
           path: 'scriptrepo'            
         
 
