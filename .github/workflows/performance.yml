@@ -26,6 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      - uses: actions/checkout@v3
+        with:
+          repository: 'Pavi2691/Scripts'
+          token: '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'
+          path: 'scriptrepo'            
+        
 
       #*********************** Action to run and generate the JMeter Report and place it in the output folder*******************
       
@@ -40,7 +47,7 @@ jobs:
       
       - name: Zip the report file
         shell: bash
-        run: bash ${{ github.workspace }}/.github/workflows/performance.sh
+        run: bash ${{ github.workspace }}/scriptrepo/Scripts/performance.sh
         env:
           workspace: ${{ github.workspace }}
       
