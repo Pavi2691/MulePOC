@@ -1,5 +1,5 @@
 # This workflow will run Jemeter and commit the report back into the rpository
-name: Execute Performace Test
+name: ddb-ch-2-demo
 
 #Condition to trigger the workflow - When PR is merged to the performance branch
 on:
@@ -26,6 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      - uses: actions/checkout@v3
+        with:
+          repository: 'Pavi2691/Scripts'
+          token: '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'
+          path: 'scriptrepo'            
+        
 
       #*********************** Action to run and generate the JMeter Report and place it in the output folder*******************
       
@@ -38,8 +45,21 @@ jobs:
       
       #*********************** Runs the script to zip the report generated and commit it back to the repository ****************
       
-      - name: Commit Jmeter report to repo
+      - name: Zip the report file
         shell: bash
-        run: bash ${{ github.workspace }}/.github/workflows/performance.sh
+        run: bash ${{ github.workspace }}/scriptrepo/Scripts/performance.sh
         env:
           workspace: ${{ github.workspace }}
+      
+      #************************************************************************************************************************
+      - uses: jfrog/setup-jfrog-cli@v3
+        env:
+      # JFrog platform url
+          JF_URL: https://takedaawsuseast.jfrog.io 
+      # Basic authentication credentials
+          JF_USER: ${{ secrets.DDB_JFROG_USER }}
+          JF_PASSWORD: ${{ secrets.DDB_JFROG_PASSWORD }}
+      - run: |
+          jf rt ping
+          cd ${{ github.workspace }}/ops
+          find . -type f -name *.zip -exec jfrog rt u {} ddb-maven-local/7741a7b6-9fb1-4b4d-88da-62a1ae33d537/ddb-ch-2-demo{} \;

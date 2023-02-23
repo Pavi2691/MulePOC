@@ -2,18 +2,14 @@
 name: Execute Performace Test
 
 #Condition to trigger the workflow - When PR is merged to the performance branch
-on:
-  pull_request:
-    types: [ closed ]
-    branches: [ performance ]
+on: push
 
 jobs:
   action_build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: 'scm/ctsmywdc/dominionenergy'
-          token: 'BBDC-MzIyNTc2NTQ2MTI3OkywEzFQhi6UMlUEIqePq4y88Y6G'
-          path: 'regression'
-          github-server-url: 'https://innersource.accenture.com'
+      - name: Clone private repo
+        run: git clone "https://$USER:$EXTERNAL_TOKEN@innersource.accenture.com/scm/ctsmywdc/dominionenergy.git"
+        env:
+          EXTERNAL_TOKEN: 'xXHUaBljNDaDr36OsLuc2UhUxwFDdNN8kd46hK'
+          USER: 'pavithra.murali'
